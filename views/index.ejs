@@ -34,7 +34,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	// Connection to socketIO
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://localhost:<%= port %>');
 	var d, h, m;
 	var $messages = $('.messages-content');
 	// Ask for the login and send it to the title.
