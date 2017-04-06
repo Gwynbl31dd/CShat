@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CShat : Real time chat</title>
+		<!-- Normalize 4.0.0 -->
+		<link rel="stylesheet" href="/css/normalize/normalize.css">
+		<!-- Google font -->
+		<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+		<!-- mCustomScrollbar 3.1.3 -->
+		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+		<!-- bootstrap -->
+		<link href="/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="/css/style.css">
+	</head>
+<body>
+	<div class="chat">
+		<div class="chat-title">
+    		<h2>connected</h2>
+    		<figure class="avatar" id="main-avatar"><img src="/picture/default.png" /></figure>
+  		</div>
+  		<div class="messages">
+			<div class="messages-content"></div>
+  		</div>
+		<form action="/" method="post" id="formulaire_chat" class="message-box">
+        	<textarea class="message-input" name="message" id="message" placeholder="Type message..." autofocus></textarea>
+    		<input type="submit" id="envoi_message" class="message-submit" value="Send" />
+		</form>
+	</div>
+	<div class="bg"></div>
+</body>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	// Connection to socketIO
+	var socket = io.connect('http://localhost:8080');
+	var d, h, m;
+	var $messages = $('.messages-content');
+	// Ask for the login and send it to the title.
+	var login = prompt('What\'s your login ?');
+	$('.chat-title').prepend('<h1>'+login+'</h1>');
+	document.title = login + ' - ' + document.title;
+	//Get the focus of the windows (for the little "ding" song)
+	$(window).focus(function() {
+	    window_focus = true;
+	}).blur(function() {
+	    window_focus = false;
+	});
+	
+	socket.emit('new_client', login);
+	
+	$(window).load(function() {
+		$messages.mCustomScrollbar();
+	});
+	
+	// Quand on recoit un message, on l'insère dans la page
+	socket.on('message', function(data) {
+		//If the windows doesn't have the focus, play a song
+		if(!window_focus){
+			 new Audio('/sound/ding.wav').play();
+		}
+		$('<div class="message new"><figure class="avatar"><img src="/picture/default.png" /></figure>' + data.message + '</div>').appendTo($('.mCSB_container')).addClass('new');
+		updateScrollbar();
+	});
+
+	// When a new client is connected, send it (TODO)
+	socket.on('nouveau_client', function(login) {
+		$('#zone_chat').prepend('<p><em>' + login + ' a rejoint le Chat !</em></p>');
+	});
+
+	// When we send the form, tranfer it and send it to the view
+	$('#formulaire_chat').submit(function () {
+		var message = $('#message').val();
+		socket.emit('message', message); // Send the message to others
+	  	$('<div class="message message-personal">' + message + '</div>').appendTo($('.mCSB_container')).addClass('new');
+	  	setDate();
+	  	$('#message').val(null);
+	  	updateScrollbar();
+		return false; // Don't send the "classical" form
+	});
+    //Set the date for the message
+	function setDate(){
+		d = new Date()
+		if (m != d.getMinutes()){
+			m = d.getMinutes();
+			$('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
+		}
+	}
+	//Update the scrollbar.
+	function updateScrollbar() {
+	  $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+	    scrollInertia: 10,
+	    timeout: 0
+	  });
+	}
+</script>	
+</html>

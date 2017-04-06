@@ -1,0 +1,11 @@
+{
+    "name": "CShat",
+    "version": "0.1.0",
+    "dependencies": {
+        "express": "~4.15.2",
+        "socket.io": "~1.7.3",
+        "ent": "~2.2.0"
+    },
+    "author": "Anthony Paulin <paulin.anthony@gmail.com",
+    "description": "Simple chat using NodeJS"
+}
