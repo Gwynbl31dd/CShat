@@ -36,6 +36,8 @@ io.sockets.on('connection', function (socket, login) {
     // When get a message, get the login and send it
     socket.on('message', function (message) {
         message = ent.encode(message);
+        //Replace caractere &#10; by a <br />
+        message = message.replace(/&#10;/g, '<br/>');
         socket.broadcast.emit('message', {login: socket.login, message: message});
         console.log('message '+message);
     }); 
