@@ -36,9 +36,10 @@ function cshat(url){
 		updateScrollbar();
 	});
 
-	// When a new client is connected, send it (TODO)
-	socket.on('nouveau_client', function(login) {
-		$('#zone_chat').prepend('<p><em>' + login + ' a rejoint le Chat !</em></p>');
+	// When a new client is connected, send it
+	socket.on('new_client', function(login) {
+		//$('#zone_chat').prepend('<p><em>' + login + ' has joined the chat !</em></p>');
+		$('<div class="message new">sdf <p><em>' + login + ' has joined the chat !</em></p></div>').appendTo($('.mCSB_container')).addClass('new');
 	});
 
 	// When we send the form, tranfer it and send it to the view
