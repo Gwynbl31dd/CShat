@@ -38,7 +38,6 @@ function cshat(url){
 
 	// When a new client is connected, send it
 	socket.on('new_client', function(login) {
-		//$('#zone_chat').prepend('<p><em>' + login + ' has joined the chat !</em></p>');
 		$('<div class="message new">sdf <p><em>' + login + ' has joined the chat !</em></p></div>').appendTo($('.mCSB_container')).addClass('new');
 	});
 
