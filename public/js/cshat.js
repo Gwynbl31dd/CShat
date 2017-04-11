@@ -2,7 +2,7 @@
 var socket = null;
 var d, h, m;
 var $messages = $('.messages-content');
-	
+var room = 'room1';
 //Get the focus of the windows (for the little "ding" song)
 $(window).focus(function() {
     window_focus = true;
@@ -23,7 +23,7 @@ function cshat(url){
 	//Initialise the connection
 	socket = io(url);
 	socket.emit('new_client', login);
-
+	$('#room_name').text(room);
 	/**
 	 * When we receive a message
 	 */
@@ -38,12 +38,26 @@ function cshat(url){
 
 	// When a new client is connected, send it
 	socket.on('new_client', function(login) {
-		$('<div class="message new">sdf <p><em>' + login + ' has joined the chat !</em></p></div>').appendTo($('.mCSB_container')).addClass('new');
+		$('<div class="message new"><p><em>' + login + '</em></p></div>').appendTo($('.mCSB_container')).addClass('new');
 	});
 
 	// When we send the form, tranfer it and send it to the view
 	$('#formulaire_chat').submit(function () {
 		sendMessage();
+		return false; // Don't send the "classical" form
+	});
+	
+	// When we send the form, tranfer it and send it to the view
+	$('#switch').submit(function () {
+		room = $('#select').val();
+		console.log('room selected :'+room);
+		//Send the value to change the room
+		socket.emit('switch', room);
+		console.log('switch to room :'+room);
+		$('#room_name').text(room);
+		$('<div class="message message-personal">Go to room '+room+'</div>').appendTo($('.mCSB_container')).addClass('new');
+		setDate();
+		updateScrollbar();
 		return false; // Don't send the "classical" form
 	});
 	

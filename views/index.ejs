@@ -14,20 +14,33 @@
 		<link rel="stylesheet" href="/css/style.css">
 	</head>
 <body>
+
 	<div class="chat">
 		<div class="chat-title">
     		<h2>connected</h2>
     		<figure class="avatar" id="main-avatar"><img src="/picture/default.png" /></figure>
+    		<h1 id='room_name'>unknow</h1>
   		</div>
+  		
   		<div class="messages">
-			<div class="messages-content"></div>
+		<div class="messages-content"></div>
   		</div>
+  		
+  		<form action="/" method="post" id="switch">
+    		<select name="rooms" size="1" id="select">
+    		<% for(var i=0; i<rooms.length; i++) { %>
+        		<option value="<%= rooms[i] %>"><%= rooms[i] %>
+			<% } %>
+    		</select>
+    		<input type="submit" class="message-submit" value="Change room" />
+    	</form>
+    	
 		<form action="/" method="post" id="formulaire_chat" class="message-box">
         	<textarea class="message-input" name="message" id="message" placeholder="Type message..." autofocus></textarea>
     		<input type="submit" id="envoi_message" class="message-submit" value="Send" />
 		</form>
+		
 	</div>
-	<div class="bg"></div>
 </body>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js'></script>
