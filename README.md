@@ -9,6 +9,9 @@ directly in app.js (server script)
 Since 0.5.0, pictures upload is available. The pictures are not saved in the server, but sent 
 through the sockets.
 
+You can see a demo here :
+
+	http://clone-soft.com:8000
 
 1) Install nodeJS
 
@@ -20,7 +23,7 @@ through the sockets.
 	
 3) Type (in the project folder): 
 
-	node install
+	npm install
 	
 4) Modify views/index.ejs and app.js with your domaine name,ip, port number.
 
