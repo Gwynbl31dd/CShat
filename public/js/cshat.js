@@ -39,8 +39,31 @@ function cshat(url){
 	// When a new client is connected, send it
 	socket.on('new_client', function(login) {
 		$('<div class="message new"><p><em>' + login + '</em></p></div>').appendTo($('.mCSB_container')).addClass('new');
+		updateScrollbar();
 	});
 
+	socket.on('image', function(login,base64Image) {
+		$('<div class="message new"><p><em>' + login + '</em><figure class="avatar"><img src="/picture/default.png" /></figure><img style="max-width:100%;max-height:100%;" src="' + base64Image + '"/></div>').appendTo($('.mCSB_container')).addClass('new');
+		updateScrollbar();
+	});
+	
+	$('#imagefile').bind('change', function(e){
+	      var data = e.originalEvent.target.files[0];
+	      var reader = new FileReader();
+	      reader.onload = function(evt){
+	    	  image('me', evt.target.result);
+	    	  socket.emit('image', evt.target.result);
+	      };
+	      reader.readAsDataURL(data);
+	      
+	    });
+	
+	 function image (from, base64Image) {
+		    $('<div class="message message-personal"><img style="max-width:100%;max-height:100%;" src="' + base64Image + '"/></div>').appendTo($('.mCSB_container')).addClass('new');
+			setDate();
+			updateScrollbar();
+		  }
+	 
 	// When we send the form, tranfer it and send it to the view
 	$('#formulaire_chat').submit(function () {
 		sendMessage();

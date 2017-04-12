@@ -52,9 +52,15 @@ io.sockets.on('connection', function (socket, login) {
         console.log('message '+message+'\n in room :'+socket.room);
     }); 
     
+    //When get a picture
+    socket.on('image', function (message) {
+        console.log(message);
+        socket.broadcast.in(socket.room).emit('image', socket.login, message);
+      });
+    
     socket.on('disconnect', function(){
 		// echo globally that this client has left
-		socket.broadcast.in(socket.room).emit('new_client', login + ' left this room');
+		socket.broadcast.in(socket.room).emit('new_client', socket.login + ' left this room');
 		socket.leave(socket.room);
 	});
     

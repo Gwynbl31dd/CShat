@@ -26,18 +26,20 @@
 		<div class="messages-content"></div>
   		</div>
   		
-  		<form action="/" method="post" id="switch">
+  		<form action="/" method="post" id="switch" style="text-align:center;">
     		<select name="rooms" size="1" id="select">
     		<% for(var i=0; i<rooms.length; i++) { %>
         		<option value="<%= rooms[i] %>"><%= rooms[i] %>
 			<% } %>
     		</select>
-    		<input type="submit" class="message-submit" value="Change room" />
+    		<input type="submit" class="switch-button" value="Change room" />
+    		
     	</form>
     	
 		<form action="/" method="post" id="formulaire_chat" class="message-box">
         	<textarea class="message-input" name="message" id="message" placeholder="Type message..." autofocus></textarea>
-    		<input type="submit" id="envoi_message" class="message-submit" value="Send" />
+        	<input  class="message-submit" type="file" id="imagefile" accept="image/*" >
+    		<input type="submit" id="envoi_message" class="message-submit" value="Send" style="top:50px;" />
 		</form>
 		
 	</div>
@@ -48,7 +50,10 @@
 <script src='/js/cshat.js'></script>
 <script>
 	//Ask for the login and send it to the title.
-	var login = prompt('What\'s your login ?');
+	var login;
+	do{
+	 login = new String(prompt('What\'s your login ?'));
+	}while(login == new String().valueOf());
 	$('.chat-title').prepend('<h1>'+login+'</h1>');
 	document.title = login + ' - ' + document.title;
 	cshat('http://localhost:<%= port %>');

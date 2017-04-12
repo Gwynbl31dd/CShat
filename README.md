@@ -2,7 +2,13 @@
 Real time chat using NodeJS
 
 This chat is easy to integrate to your server.
-This is a project in dev. At the moment only message and login are available.
+
+Since 0.4.0 I added a rooms functionality You can add multiples rooms 
+directly in app.js (server script)
+
+Since 0.5.0, pictures upload is available. The pictures are not saved in the server, but sent 
+through the sockets.
+
 
 1) Install nodeJS
 
@@ -15,7 +21,6 @@ This is a project in dev. At the moment only message and login are available.
 3) Type (in the project folder): 
 
 	node install
-	
 	
 4) Modify views/index.ejs and app.js with your domaine name,ip, port number.
 

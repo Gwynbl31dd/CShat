@@ -1,6 +1,6 @@
 {
     "name": "CShat",
-    "version": "0.4.2",
+    "version": "0.5.0",
     "dependencies": {
         "express": "~4.15.2",
         "socket.io": "~1.7.3",
