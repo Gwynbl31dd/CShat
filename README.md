@@ -25,15 +25,10 @@ You can see a demo here :
 
 	npm install
 	
-4) Modify views/index.ejs and app.js with your domaine name,ip, port number.
+4) Modify app.js with your domaine name/ip, port number.
 
-For views/index.ejs :
-
-	cshat('http://localhost:<%= port %>');
-
-For app.js :
-
-	var portNumber = 8080;
+	var portNumber = 8080,
+	url = '127.0.0.1;
 
 5) Start the server (in the project folder) using :
 

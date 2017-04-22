@@ -10,7 +10,8 @@ const express = require('express'),
 	  path = require('path'),
 	  ejs = require('ejs');//Template engine
 
-var portNumber = 8080;
+var portNumber = 8080
+	url = '127.0.0.1';//IP or domaine
 
 //rooms which are currently available in chat
 var rooms = ['room1','room2','room3'];
@@ -20,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Load index.html
 app.get('/', function (req, res) {
-	res.render('index.ejs',{port:portNumber,rooms:rooms});
+	res.render('index.ejs',{url:url+':'+portNumber,rooms:rooms});
 });
 
 // Redirect to an error 404 if no page found

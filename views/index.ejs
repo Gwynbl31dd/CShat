@@ -51,13 +51,15 @@
 <script>
 	//Ask for the login and send it to the title.
 	var login;
+	
 	do{
 	 login = new String(prompt('What\'s your login ?'));
 	}while(login == new String().valueOf());
 	$('.chat-title').prepend('<h1>'+login+'</h1>');
 	document.title = login + ' - ' + document.title;
+	
 	$(document).ready(function(){
-		cshat('http://localhost:<%= port %>');
+		cshat('http://<%= url %>');
 	});
 </script>
 </html>
