@@ -56,6 +56,8 @@
 	}while(login == new String().valueOf());
 	$('.chat-title').prepend('<h1>'+login+'</h1>');
 	document.title = login + ' - ' + document.title;
-	cshat('http://localhost:<%= port %>');
+	$(document).ready(function(){
+		cshat('http://localhost:<%= port %>');
+	});
 </script>
 </html>

@@ -11,7 +11,10 @@ $(window).focus(function() {
 });
 
 $(window).load(function() {
-	$messages.mCustomScrollbar();
+	$messages.mCustomScrollbar({ 
+		theme:"dark",
+		autoHideScrollbar: false
+		});
 });
 
 /**
@@ -112,10 +115,8 @@ function cshat(url){
 	 * Update the scrollbar
 	 */
 	function updateScrollbar() {
-		$messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-			scrollInertia: 5,
-			timeout: 0
-		});
+			console.log("update scrollbar");
+			$messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo','bottom');
 	};
 	/**
 	 * Send the message
@@ -131,5 +132,5 @@ function cshat(url){
 			$('#message').val(null);
 			updateScrollbar();
 		}
-	}
+	};
 };
